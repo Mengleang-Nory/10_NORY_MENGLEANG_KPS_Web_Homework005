@@ -4,8 +4,8 @@ import { getBookById, getCartoonById } from "@/service/book.service";
 import Link from "next/link";
 
 const DetailPage = async ({ params, searchParams }) => {
-  const { id } = params; // Get item.id from URL
-  const { type, name, title } = searchParams; // Extract query params
+  const { id } = params;
+  const { type, name, title } = searchParams;
 
   let data;
 
@@ -15,10 +15,6 @@ const DetailPage = async ({ params, searchParams }) => {
   let viewDetail;
   let publishedYear;
   let description;
-
-  const splitYear = (published_year) => {
-    return published_year.split("-")[0];
-  };
 
   if (type == "book") {
     data = await getBookById(id);
@@ -42,14 +38,63 @@ const DetailPage = async ({ params, searchParams }) => {
 
   return (
     <section>
-      <section>
-        <Link href={"/"}>Home</Link>
+      <section className="flex items-center relative top-[100px] left-[80px] w-[1000px]">
+        <Link
+          href="/"
+          className="group flex flex-row justify-start items-center gap-x-5 px-5 py-7 rounded-2xl w-auto h-[28px] hover:bg-gray-100 transition-colors duration-200"
+        >
+          <img
+            className="w-[24px] h-[24px] group-hover:hidden"
+            src="/homeLogo.svg"
+            alt="Home"
+          />
+          <img
+            className="w-[24px] h-[24px] hidden group-hover:block"
+            src="/linkLogo.svg"
+            alt="Home Hover"
+          />
+          <h5 className="w-auto">Home</h5>
+        </Link>
+
+        <img
+          className="w-[24px] h-[24px]"
+          src="/arrowRight.svg"
+          alt="arrow icon"
+        />
         <Link
           href={type == "book" ? "/book-categories" : "/old-school-cartoons"}
+          className="group flex flex-row justify-start items-center gap-x-5 px-5 py-7 rounded-2xl w-auto h-[28px] hover:bg-gray-100 transition-colors duration-200"
         >
-          {type == "book" ? "Book Categories" : "Old School cartoons"}
+          <img
+            className="w-[24px] h-[24px] group-hover:hidden"
+            src="/bookLogo.svg"
+            alt="Home"
+          />
+          <img
+            className="w-[24px] h-[24px] hidden group-hover:block"
+            src="/linkLogo.svg"
+            alt="Home Hover"
+          />
+          <h5 className="w-auto">
+            {type == "book" ? "Book Categories" : "Old School cartoons"}
+          </h5>
         </Link>
-        <span>{title}</span>
+        <img
+          className="w-[24px] h-[24px]"
+          src="/arrowRight.svg"
+          alt="arrow icon"
+        />
+        <div
+          href="/all-book"
+          className={`flex flex-row justify-start items-center gap-x-5 px-5 py-7 rounded-2xl w-auto h-[28px]`}
+        >
+          <img
+            className="w-[24px] h-[24px]"
+            src="/readBookLogo.svg"
+            alt="book categories"
+          />
+          <h5 className="text-[#C81D25] w-auto">{titleDetail}</h5>
+        </div>
       </section>
       <DetailComponent
         image={image}
